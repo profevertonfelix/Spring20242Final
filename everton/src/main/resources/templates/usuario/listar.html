@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xlms:th="http://www.thymeleaf.org">
+	<head>
+		<title>Site com Spring</title>
+	</head>
+	<body>
+	<th:block th:include="usuario/msg"></th:block>
+		<a href="/usuario/listar/comum">Comum</a>
+		<a href="/usuario/listar/adm">Adm</a>
+		<br />
+		<form method="POST" action="/usuario/listar/">
+			<label for="busca">Busca</label>
+			<input type="text" name="busca" id="busca" />
+			<button type="submit">Enviar</button>
+		</form>
+	
+		<table border>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Tipo</th>
+					<th>Foto</th>
+					<th colspan="2">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="usuario: ${usuarios}">
+					<td th:text="${usuario.id}"></td>
+					<td th:text="${usuario.nome}"></td>
+					<td th:text="${usuario.email}"></td>
+					<td th:text="${usuario.tipo}"></td>
+					<td><img th:src="@{/usuario/mostrarImagem/{img}(img=${usuario.imagem})}"/></td>
+					<td><a th:href="@{/usuario/editar/{id}(id=${usuario.id})}">
+					Editar</a></td>
+					<td><a th:href="@{/usuario/excluir/{id}(id=${usuario.id})}">
+					Excluir</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
